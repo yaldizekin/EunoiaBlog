@@ -1,0 +1,24 @@
+﻿@model Blog.Areas.Admin.Models.EunBlog
+
+
+<br />
+<br />
+
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <img src="~/backup/images/@Model.ImagePath" class="img-fluid">
+                <br />
+
+                <h2>@Model.Title</h2>
+                <br />
+
+                <h1 hidden>@Model.Visits</h1>
+                @Html.Raw(Model.Content)
+
+            </div>
+        </div>
+    </div>
+</article>

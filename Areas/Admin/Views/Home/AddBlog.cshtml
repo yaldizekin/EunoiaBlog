@@ -1,0 +1,125 @@
+﻿@model Blog.Areas.Admin.Models.EunBlog
+
+<div class="row row-cards">
+    <div class="col-12">
+        <form class="card" method="post" enctype="multipart/form-data">
+            <div class="card-body">
+                <h3 class="card-title">Yeni Blog Ekle</h3>
+                <div class="row row-cards">
+                   
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label">Başlık</label>
+                            <input type="text" name="Title" class="form-control" placeholder="" value="">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label">Slug</label>
+                            <input type="text" name="Slug" class="form-control" placeholder="" value="">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label class="form-label">Resim</label>
+                            <input type="file" name="Image" class="form-control" placeholder="" value="Image" >
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="mb-3 mb-0">
+                            <label class="form-label">Özet</label>
+                            <textarea rows="5" name="Summary" class="form-control" placeholder="" value="Summary"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="mb-3 mb-0">
+                            <label class="form-label">İçerik</label>
+                            <textarea rows="5" name="Content" class="tiny" placeholder="" value="Content"></textarea>
+                        </div>
+                    </div>
+                     <div class="col-md-12">
+                        <div class="mb-3 mb-0">
+                            <label class="form-label">Görüntülenme</label>
+                            <input rows="5" name="Visits" placeholder="" value="Visits"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Script {
+    <script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/5-stable/tinymce.min.js"></script>
+    <script>
+      
+    $('[name="Title"]').blur(function () {
+            let val = $(this).val().trim();
+
+            if (val === '') { return; }
+
+            $.post('/admin/home/GenerateSlug',
+                { title: val },
+                function (r) {
+               $('[name="Slug"]').val(r);
+               });
+       });
+
+        $('[name="Slug"]').blur(function () {
+            let val = $(this).val().trim();
+
+            if (val === '') { return; }
+
+            $.post('/admin/home/CheckSlugExists',
+                { slug: val },
+                function (r) {
+                    if (r.exists) {
+                        alert('bu slug var, başka slug yazmalısınız');
+                    }
+                });
+        });
+
+        $('form.card').submit(function (e) {
+            e.preventDefault();
+            let that = $(this);
+
+            let val = $('[name="Slug"]').val();
+            if (val === '') { return; }
+
+            $.post('/admin/home/CheckSlugExists',
+                { slug: val },
+                function (r) {
+                    if (r.exists) {
+                        alert('bu slug var, başka slug yazmalısınız');
+                        return false;
+                    }
+
+                    that[0].submit();
+                });
+
+        });
+
+        tinymce.init({
+            selector: '.tiny',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+    </script>
+    }

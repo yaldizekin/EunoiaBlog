@@ -1,0 +1,74 @@
+﻿@model Blog.Areas.Admin.Models.Contact
+
+<div id="colorlib-main">
+	<section class="ftco-section contact-section">
+		<div class="container">
+			<div class="row d-flex mb-5 contact-info">
+				<div class="col-md-12 mb-4">
+					<h2 class="h4 font-weight-bold">İletişim Bilgileri</h2>
+				</div>
+				<div class="w-100"></div>
+				<div class="col-md-3">
+					<p><span>Adres:</span> <br />
+                        İstanbul</p>
+				</div>
+				
+				<div class="col-md-3">
+					<p><span>Email:</span> <br /> <a href="mailto:yaldizekin@gmail.com">yaldizekin@gmail.com</a></p>
+				</div>
+				<div class="col-md-3">
+                    <p><span>Website:</span> <a href="https://github.com/yaldizekin">https://github.com/yaldizekin</a></p>
+				</div>
+			</div>
+			<div class="row block-9">
+               
+                <div class="col-md-6 order-md-last pr-md-5">
+                        <form asp-route="iletisim"  method="post">
+                            
+                            <div class="form-floating">
+                                <label asp-for="Name" class="control-label">Ad</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-floating">
+                                <label asp-for="Email" class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-floating">
+                                <label asp-for="Phone" class="control-label">Telefon</label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-floating">
+                                <label asp-for="Message" class="control-label">Mesaj</label>
+                                <input asp-for="Message" class="form-control" />
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="Id" class="control-label"></label>
+                            <select asp-for="Id" class="form-control" ></select>
+                        </div>
+                        <div class="form-group" hidden>
+                            <label asp-for="CreatedOn" class="control-label"></label>
+                            <select asp-for="CreatedOn" class="form-control"></select>
+                        </div>
+                        <br />
+                        <button class="btn btn-primary text-uppercase form-control" type="submit">Gönder</button>
+                        <br />
+                            
+                        </form>
+                       
+                    </div>
+            
+				<div class="col-md-6">
+					<div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24066.37072879443!2d28.968258464633582!3d41.062514574075166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab685c86f5979%3A0x2519479e0fb398da!2zxZ5pxZ9saS_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1701379372970!5m2!1str!2str" width="500" height="420" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+</div>
+
